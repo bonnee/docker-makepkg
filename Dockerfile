@@ -21,6 +21,9 @@ RUN mkdir .gnupg && \
 
 COPY run.sh /run.sh
 
+# edit makepkg.conf to enable multiple simultaneous jobs
+RUN echo 'MAKEFLAGS="-j$(nproc)"' | sudo tee -a /etc/makepkg.conf
+
 # Build the package
 WORKDIR /pkg
 CMD ["/bin/bash", "/run.sh"]
