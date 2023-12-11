@@ -3,6 +3,7 @@ FROM archlinux:base-devel
 # makepkg cannot (and should not) be run as root:
 RUN useradd -m build && \
     pacman -Syu --noconfirm && \
+    pacman-key --init && \
     pacman -Sy --noconfirm git && \
     # Allow build to run stuff as root (to install dependencies):
     echo "build ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/build
@@ -24,3 +25,4 @@ COPY run.sh /run.sh
 # Build the package
 WORKDIR /pkg
 CMD ["/bin/bash", "/run.sh"]
+
